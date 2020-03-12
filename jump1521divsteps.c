@@ -29,22 +29,23 @@ static inline int barrett_16x2i(int X) {
 static int B1521_1[769];
 int * BB1521_1 = (int *)((void *)B1521_1 + 2);
 
-void gf_polymul_768x768_2x2_x_2x2 (int *M, int *M1, int *M2){
+void gf_polymul_768x768_2x2_x_2x2 (int *M, int *M1, int *M2){ //only v = g^-1 mod f
     int i, T, *X, *Y;
+/*
     gf_polymul_768x768(BB1521_1, M2, M1); // x * u2 * u1 
     gf_polymul_768x768(M, M2+384,M1+768); // v2 * r1
     for (i=768, X=M, Y=B1521_1; i>0; i--) {	// u = x u2 u1 + v2 r1
      T = barrett_16x2i(__SADD16(*X,*(Y++)));
        *(X++) = T;
     }
-
+*/
     gf_polymul_768x768(BB1521_1, M2, M1+384); // x * u2 * v1 
     gf_polymul_768x768(M+768, M2+384,M1+1152); // v2 * s1
-    for (i=768, Y=B1521_1; i>0; i--) {	// v = x u2 v1 + v2 s1
+    for (i=768, X=M+768, Y=B1521_1; i>0; i--) {	// v = x u2 v1 + v2 s1
      T = barrett_16x2i(__SADD16(*X,*(Y++)));
        *(X++) = T;
     }
-
+/*
     gf_polymul_768x768(BB1521_1, M2+768, M1); // x * r2 * u1 
     gf_polymul_768x768(M+1536, M2+1152,M1+768); // s2 * r1
     for (i=768, Y=B1521_1; i>0; i--) {	// r = x r2 u1 + s2 r1
@@ -58,6 +59,7 @@ void gf_polymul_768x768_2x2_x_2x2 (int *M, int *M1, int *M2){
      T = barrett_16x2i(__SADD16(*X,*(Y++)));
        *(X++) = T;
     }
+*/
 }
 
 int jump1521divsteps(int minusdelta, int *M, int *f, int *g){
