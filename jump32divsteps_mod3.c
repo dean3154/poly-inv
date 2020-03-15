@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "red_mod3_int.h"
 #include "cmsis.h"
 
 extern int jump16divsteps_mod3(int minusdelta, int* M, int* f, int* g);
@@ -18,20 +19,20 @@ void gf_polymul_16x16_2x2_x2p2_mod3(int *V,int *M,int *fh,int *gh){
   gf_polymul_16x16_mod3(CC32_2, M+12, gh); // x * v * gh
 
   for (X=V, Y=C32_1, Z=C32_2, W=M, i=4; i>0; i--) {// x(u fh+v gh)+f1
-    *(X++) = ubadd_mod3(ubadd_mod3(*(W++),*(Y++)),*(Z++));
+    *(X++) = add_ub3(add_ub3(*(W++),*(Y++)),*(Z++));
   }
   for (i=4; i>0; i--) {
-    *(X++) = ubadd_mod3(*(Y++),*(Z++));
+    *(X++) = add_ub3(*(Y++),*(Z++));
   }
 
   gf_polymul_16x16_mod3(V+8, M+16, fh); // r * fh
   gf_polymul_16x16_mod3(CC32_1, M+20, gh); // s * gh
 
   for (Y=CC32_1, i=4; i>0; i--) {// r fh+s gh+g1
-    T = ubadd_mod3(ubadd_mod3(*(W++),*(Y++)),*X); *(X++) = T;
+    T = add_ub3(add_ub3(*(W++),*(Y++)),*X); *(X++) = T;
   }
   for (i=4; i>0; i--) {
-    T = ubadd_mod3(*X, *(Y++)); *(X++) = T;
+    T = add_ub3(*X, *(Y++)); *(X++) = T;
   }
 }
 
@@ -41,22 +42,22 @@ void gf_polymul_16x16_2x2_x_2x2_mod3(int *M, int *M1, int *M2){
   gf_polymul_16x16_mod3(CC32_1, M2, M1); // x * u2 * u1
   gf_polymul_16x16_mod3(M, M2+4, M1+8); // v2 * r1
   for (i=8, X=M, Y=C32_1; i>0; i--) { // u = x * u2 * u1 + v2 * r1
-    T = ubadd_mod3(*X, *(Y++)); *(X++) = T;
+    T = add_ub3(*X, *(Y++)); *(X++) = T;
   }
   gf_polymul_16x16_mod3(CC32_1, M2, M1+4); // x * u2 * v1
   gf_polymul_16x16_mod3(M+8, M2+4, M1+12); // v2 * s1
   for (i=8, Y=C32_1; i>0; i--) { // v = x * u2 * v1 + v2 * s1
-    T = ubadd_mod3(*X, *(Y++)); *(X++) = T;
+    T = add_ub3(*X, *(Y++)); *(X++) = T;
   }
   gf_polymul_16x16_mod3(CC32_1, M2+8, M1); // x * r2 * u1
   gf_polymul_16x16_mod3(M+16, M2+12, M1+8); // s2 * r1
   for (i=8, Y=C32_1; i>0; i--) { // r = x * r2 * u1 + s2 * r1
-    T = ubadd_mod3(*X, *(Y++)); *(X++) = T;
+    T = add_ub3(*X, *(Y++)); *(X++) = T;
   }
   gf_polymul_16x16_mod3(CC32_1, M2+8, M1+4); // x * r2 * v1
   gf_polymul_16x16_mod3(M+24, M2+12, M1+12); // s2 * s1
   for (i=8, Y=C32_1; i>0; i--) { // s = x * r2 * v1 + s2 * s1
-    T = ubadd_mod3(*X, *(Y++)); *(X++) = T;
+    T = add_ub3(*X, *(Y++)); *(X++) = T;
   }
 }
 
