@@ -106,7 +106,7 @@ __attribute__(( always_inline )) static inline int red_ub3_255(int A) {
 		    "add %0, %1, %1, LSR #2\n\t"/* E=D%4+D//4 */	\
 		    "usub8 %0, %1, %2 \n\t"	/* E-3        */	\
 		    "sel %0, %0, %1"		/* sel(E-3,E) */	\
-		    : "=&r"(result), "+r"(B)				\
+		    : "=&r"(result), "+r"(A)				\
 		    : "r"(0x03030303)					\
 		    );
   return(result);
