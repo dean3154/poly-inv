@@ -24,7 +24,7 @@ static inline int barrett_16x2i(int X) {
 #else 
 #define barrett_16x2i(A) (A)
 #endif
-static int B256_1[128], B256_2[128];
+static int B256_1[129], B256_2[129];
 int * BB256_1 = (int *)((void *)B256_1 + 2);
 int * BB256_2 = (int *)((void *)B256_2 + 2);
 
@@ -41,7 +41,6 @@ void gf_polymul_128x128_2x2_x2p2 (int *V,int *M,int *fh,int *gh){
     //V[i+64] = barrett_16x2i(__SADD16(B64_1[i+256],B64_2[i+256]));
     *(X++) = barrett_16x2i(__SADD16(*(Y++),(*Z++)));
   } 
-
   gf_polymul_128x128(V+128, M+256, fh);	// r * fh
   gf_polymul_128x128(BB256_1, M+320, gh);	// s * gh
   for (Y=BB256_1, i=64; i>0; i--) {	// x(r fh+s gh) + g1

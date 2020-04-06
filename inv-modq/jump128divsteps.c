@@ -82,7 +82,7 @@ void gf_polymul_64x64_2x2_x_2x2 (int *M, int *M1, int *M2) {
   }
 }
 int jump128divsteps(int minusdelta, int *M, int *f, int *g){
-int M1[192], M2[192], fg[128];
+int M1[384], M2[384], fg[128];
   minusdelta = jump64divsteps(minusdelta, M1, f, g);
   /*
   printf("u1 = GF4591x(");
