@@ -11,7 +11,9 @@ extern void gf_polymul_16x16_2x2_x_2x2 (int *M, int *M1, int *M2);
 extern void gf_polymul_32x32_2x2_x_2x2 (int *M, int *M1, int *M2);
 extern void gf_polymul_64x64_2x2_x_2x2 (int *M, int *M1, int *M2);
 extern void gf_polymul_128x128_2x2_x_2x2 (int *M, int *M1, int *M2);
-//extern void gf_polymul_256x512_2x2_x_2x2 (int *M, int *M1, int *M2);
+extern void gf_polymul_256x512_2x2_x_2x2 (int *M, int *M1, int *M2);
+
+extern void gf_polymul_256x512(void *h, void *f, void *g); // length f : 256 , g : 512
 void gf_polymul_256x512_2x2_x_2x2_onlyuv (int *M, int *M1, int *M2);
 
 extern int jump512divsteps(int minusdelta, int *M, int *f, int *g);
@@ -20,6 +22,9 @@ extern int jump64divsteps(int minusdelta, int *M, int *f, int *g);
 extern int jump32divsteps(int minusdelta, int *M, int *f, int *g);
 extern int jump16divsteps(int minusdelta, int *M, int *f, int *g);
 extern int jump4divsteps_1(int minusdelta, int *M, int *f, int *g);
+extern int jump4divsteps_2(int minusdelta, int *M, int *f, int *g);
+extern int jump4divsteps_3(int minusdelta, int *M, int *f, int *g);
+extern int jump4divsteps(int minusdelta, int *M, int *f, int *g);
 
 int jump753divsteps(int minusdelta, int *M, int *f, int *g);
 
@@ -43,6 +48,7 @@ static inline int barrett_16x2i(int X) {
 
 static int C768_1[385];
 int * CC768_1 = (int *)((void *)C768_1 + 2);
+
 void gf_polymul_256x512_2x2_x_2x2_onlyuv (int *M, int *M1, int *M2){ // M = M2*M1, length M1 : 512*4   M2 : 256*4
   int i, T, *X, *Y;
 
@@ -81,8 +87,6 @@ int jump753divsteps(int minusdelta, int *M, int *f, int *g){
   int M1[1536], M2[384], M3[192], M4[96], M5[48], M6[48], fg1[768],fg2[256],fg3[128],fg4[64],fg5[32];
   int h1[64],h2[128],h3[256],h4[512];
 
-  for(i=0;i<48;i++)M6[i]=0;
-
   minusdelta = jump512divsteps(minusdelta, M1, f, g);
   gf_polymul_512x256_2x2_x2p2(fg1,M1,f+256,g+256); // fg : f1 head , fg+384 : g1 head
   minusdelta = jump128divsteps(minusdelta, M2, fg1, fg1+384);
@@ -108,6 +112,7 @@ int jump753divsteps(int minusdelta, int *M, int *f, int *g){
   gf_polymul_32x32_2x2_x_2x2(h2,M4+32,h1);
   gf_polymul_64x64_2x2_x_2x2(h3,M3+64,h2);
   gf_polymul_128x128_2x2_x_2x2(h4,M2+128,h3);
+  //gf_polymul_256x512_2x2_x_2x2(M+768,M1+512,h4);
   gf_polymul_256x512_2x2_x_2x2_onlyuv(M+768,M1+512,h4);
 
   for(i=0;i<768;i++)M[i]=0;
