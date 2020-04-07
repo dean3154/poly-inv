@@ -46,40 +46,40 @@ static inline int barrett_16x2i(int X) {
 #define barrett_16x2i(A) (A)
 #endif
 
-static int C768_1[385];
-int * CC768_1 = (int *)((void *)C768_1 + 2);
+static int B753_1[385];
+int * BB753_1 = (int *)((void *)B753_1 + 2);
 
 void gf_polymul_256x512_2x2_x_2x2_onlyuv (int *M, int *M1, int *M2){ // M = M2*M1, length M1 : 512*4   M2 : 256*4
   int i, T, *X, *Y;
 
-  gf_polymul_256x512(CC768_1, M2, M1); // x * u2 * u1 
+  gf_polymul_256x512(BB753_1, M2, M1); // x * u2 * u1 
   gf_polymul_256x512(M, M2+128, M1+512); // v2 * r1
-  for (i=384, X=M, Y=C768_1; i>0; i--) {	// u = x u2 u1 + v2 r1
+  for (i=384, X=M, Y=B753_1; i>0; i--) {	// u = x u2 u1 + v2 r1
     T = barrett_16x2i(__SADD16(*X,*(Y++)));
     *(X++) = T;
   }
 
-  gf_polymul_256x512(CC768_1, M2, M1+256); // x * u2 * v1
+  gf_polymul_256x512(BB753_1, M2, M1+256); // x * u2 * v1
   gf_polymul_256x512(M+384, M2+128, M1+768); // v2 * s1
-  for (i=384, Y=C768_1; i>0; i--) {	// v = x u2 v1 + v2 s1
+  for (i=384, Y=B753_1; i>0; i--) {	// v = x u2 v1 + v2 s1
     T = barrett_16x2i(__SADD16(*X,*(Y++)));
     *(X++) = T;
   }
 /*
-  gf_polymul_256x512(BB768_1, M2+256, M1); // x * r2 * u1
+  gf_polymul_256x512(BB753_1, M2+256, M1); // x * r2 * u1
   gf_polymul_256x512(M+768, M2+384, M1+512); // s2 * r1
-  for (i=384, Y=B768_1; i>0; i--) { // r = x r2 u1 + s2 r1
+  for (i=384, Y=B753_1; i>0; i--) { // r = x r2 u1 + s2 r1
     T = barrett_16x2i(__SADD16(*X,*(Y++)));
     *(X++) = T;
   }
 
-  gf_polymul_256x512(BB768_1, M2+256, M1+256); // x * r2 * v1
+  gf_polymul_256x512(BB753_1, M2+256, M1+256); // x * r2 * v1
   gf_polymul_256x512(M+1152, M2+384, M1+768); // s2 * s1
-  for (i=384, Y=B768_1; i>0; i--) { // s = x r2 v1 + s2 s1
+  for (i=384, Y=B753_1; i>0; i--) { // s = x r2 v1 + s2 s1
     T = barrett_16x2i(__SADD16(*X,*(Y++)));
     *(X++) = T;
   }
-  */
+*/
 }
 
 int jump753divsteps(int minusdelta, int *M, int *f, int *g){
