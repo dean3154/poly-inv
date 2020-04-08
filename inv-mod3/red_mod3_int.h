@@ -90,7 +90,7 @@ __attribute__(( always_inline )) static inline int red_ub3_255(int A) {
 }
 #define red_ub3_179(A) red_ub3_255(A)
 #else // can't use the constant 0x0f0f0f0f, B up to 66, C to 18
-__attribute__(( always_inline )) static inline int red_ub3_255(int A) { 
+__attribute__(( always_inline )) static inline int red_ub3_255(int B) { 
   int result;								
   __asm__ volatile ("and %0, %1, %2\n\t"	/* A mod 4    */        \
 		    "bic %1, %1, %2\n\t"	/* A and 0xfc */	\
@@ -106,7 +106,7 @@ __attribute__(( always_inline )) static inline int red_ub3_255(int A) {
 		    "add %0, %1, %1, LSR #2\n\t"/* E=D%4+D//4 */	\
 		    "usub8 %0, %1, %2 \n\t"	/* E-3        */	\
 		    "sel %0, %0, %1"		/* sel(E-3,E) */	\
-		    : "=&r"(result), "+r"(A)				\
+		    : "=&r"(result), "+r"(B)				\
 		    : "r"(0x03030303)					\
 		    );
   return(result);

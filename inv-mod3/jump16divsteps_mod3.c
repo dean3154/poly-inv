@@ -9,14 +9,15 @@ void gf_polymul_8x8_2x2_x2p2_mod3(int* V,int* M,int *fh, int* gh);
 void gf_polymul_8x8_2x2_x_2x2_mod3(int* M,int* M1,int* M2);
 
 static int C16_1[5], C16_2[5];
-int* CC16_1 = (int *)((void *)C16_1 + 1);
-int* CC16_2 = (int *)((void *)C16_2 + 1);
+int * CC16_1 = (int *)((void *)C16_1 + 1);
+int * CC16_2 = (int *)((void *)C16_2 + 1);
 
 void gf_polymul_8x8_2x2_x2p2_mod3(int *V,int *M,int *fh,int *gh){
   int i, T, *X, *Y, *Z, *W;
 
   gf_polymul_8x8_mod3(CC16_1, M+4, fh); // x * u * fh
   gf_polymul_8x8_mod3(CC16_2, M+6, gh); // x * v * gh
+
   for (X=V, Y=C16_1, Z=C16_2, W=M, i=2; i>0; i--) {// x(u fh+v gh)+f1
     *(X++) = add_ub3(add_ub3(*(W++),*(Y++)),*(Z++));
   }
