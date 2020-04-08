@@ -40,7 +40,7 @@ int polyinv4591761(int16_t* H, int16_t* const G){
     int k,minusdelta=-1;
 
     for(i=0;i<768;i++)f[i]=0;
-    for(i=0;i<768;i++)g[i]=0;
+    for(i=761;i<768;i++)g[i]=0;
     f[0]=1;
     f[760]=-1;
     f[761]=-1;
