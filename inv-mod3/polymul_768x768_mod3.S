@@ -246,7 +246,7 @@ gf_polymul_768x768_mod3_copy_output_body:
   ldr.w r9, [r0, #28]
   ldr.w r10, [r0, #32]
   ldr.w r11, [r0, #36]
-  str.w r2, [lr], #44
+  str.w r2, [lr]
   str.w r3, [lr, #4]
   str.w r4, [lr, #8]
   str.w r5, [lr, #12]
