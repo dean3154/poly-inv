@@ -49,10 +49,9 @@ int polyinv4591761(int16_t* H, int16_t* const G){
     minusdelta = jump1521divsteps(minusdelta,M,f,g);
 
 	k=pow4589(M[0]);
-    for(i=0;i<768;i++)H[i]=0;
     for(i=0;i<761;i++){
         H[i] = bred(M[3847-i]*k,q,-qR2inv);
     }
 
-    return minusdelta == 0 ? 1 : 0;
+    return minusdelta;
 }

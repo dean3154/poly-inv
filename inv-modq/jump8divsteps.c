@@ -75,63 +75,12 @@ int jump8divsteps(int minusdelta, int *M, int *f, int *g){
 
   minusdelta = jump4divsteps(minusdelta, M1, f, g);
 
-  /*
-  printf("u1 = GF4591x(");
-  printn((short *)(M1+4),4);
-  printf(")\n");
-  printf("v1 = GF4591x(");
-  printn((short *)(M1+6),4);
-  printf(")\n");
-  printf("r1 = GF4591x(");
-  printn((short *)(M1+8),4);
-  printf(")\n");
-  printf("s1 = GF4591x(");
-  printn((short *)(M1+10),4);
-  printf(")\n");
-
-  printf("f1 = GF4591x(");
-  printn((short *)(M1),4);
-  printf(")\n");
-  printf("g1 = GF4591x(");
-  printn((short *)(M1+2),4);
-  printf(")\n");
-  */
   polymul_4x4_2x2_x2p2 (fg, M1, f+2, g+2);
 
-  /*
-  printf("f2 = GF4591x(");
-  printn((short *)(fg),8);
-  printf(")\n");
-  printf("g2 = GF4591x(");
-  printn((short *)(fg+4),8);
-  printf(")\n");
-  */
-  
   minusdelta = jump4divsteps(minusdelta, M2, fg, fg+4);
 
-  /*
-  printf("u2 = GF4591x(");
-  printn((short *)(M2+4),4);
-  printf(")\n");
-  printf("v2 = GF4591x(");
-  printn((short *)(M2+6),4);
-  printf(")\n");
-  printf("r2 = GF4591x(");
-  printn((short *)(M2+8),4);
-  printf(")\n");
-  printf("s2 = GF4591x(");
-  printn((short *)(M2+10),4);
-  printf(")\n");
-  
-  printf("f3 = GF4591x(");
-  printn((short *)(M2),4);
-  printf(")\n");
-  printf("g3 = GF4591x(");
-  printn((short *)(M2+2),4);
-  printf(")\n");
-  */
-  
   polymul_4x4_2x2_x2p2 (M, M2, fg+2, fg+6);
+  
   polymul_4x4_2x2_x_2x2(M+8, M1+4, M2+4);
   return(minusdelta);
 }

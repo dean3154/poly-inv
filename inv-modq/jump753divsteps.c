@@ -121,5 +121,5 @@ int jump753divsteps(int minusdelta, int *M, int *f, int *g){
   M[384]=M6[2];
   M[385]=M6[3];
 
-  return(minusdelta);
+  return minusdelta;
 }
