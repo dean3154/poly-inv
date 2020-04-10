@@ -23,5 +23,5 @@ int polyinv4591761_mod3(uint8_t* H, uint8_t* G){
         H[i] = (M[3847-i]*M[0])%3;
     }
 
-    return minusdelta == 0 ? 1 : 0;
+    return minusdelta;
 }
